@@ -1,0 +1,23 @@
+{
+  "name": "ts-first-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js-only.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JulyK9/learn_typescript.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JulyK9/learn_typescript/issues"
+  },
+  "homepage": "https://github.com/JulyK9/learn_typescript#readme",
+  "dependencies": {
+    "typescript": "^4.9.4"
+  }
+}
