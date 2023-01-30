@@ -1,10 +1,13 @@
+type Combinable = string | number;
+type TypeDescriptor = "as-number" | "as-text";
+
 // function combine(input1: number, input2: number) {
 // function combine(input1: string, input2: string) {
 function combine(
-  input1: string | number,
-  input2: string | number,
+  input1: Combinable,
+  input2: Combinable,
   // resultType: string
-  resultType: "as-number" | "as-text" // 유니언 타입과 리터럴 타입의 결합 사용
+  resultType: TypeDescriptor // 유니언 타입과 리터럴 타입의 결합 사용
 ) {
   // let result;
   if (
