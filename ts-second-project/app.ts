@@ -39,11 +39,12 @@ const person = {
   role: Role.AUTHOR,
 };
 
-let favoriteActivities: string[];
-// let favoriteActivities: any[];
+// let favoriteActivities: string[];
+let favoriteActivities: any[];
 // favoriteActivities = "Sports";
-// favoriteActivities = ["Sports", 1];
-favoriteActivities = ["Sports"];
+favoriteActivities = ["Sports", 1];
+// favoriteActivities = ["Sports"];
+// favoriteActivities = 4;
 
 // console.log(person.nickname);
 console.log(person.name);
