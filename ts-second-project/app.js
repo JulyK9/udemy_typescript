@@ -8,5 +8,16 @@ function printResult2(num) {
     // 명시적 표시
     console.log("Result: " + num);
 }
-printResult2(add2(5, 12));
-console.log(printResult2(add2(5, 12)));
+// 주의 undefined를 반환한다는 의미는 void 와는 다름
+function printResult3(num) {
+    // 명시적 표시
+    console.log("Result: " + num);
+    return; // 값을 반환하지 않는 반환문이 있는 것임. 따라서 함수는 undefined 타입임
+}
+printResult2(add2(5, 12)); // Result: 17
+console.log(printResult2(add2(5, 12))); // undefined, 아무것도 반환하지 않는 함수의 반환값을 사용했기때문
+var combineValues;
+combineValues = add2;
+console.log(combineValues(8, 8));
+// undefined는 타입스크립트에서 유효한 타입중 하나임
+// let someValue: undefined;

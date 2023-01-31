@@ -20,5 +20,14 @@ function printResult3(num: number): undefined {
 printResult2(add2(5, 12)); // Result: 17
 console.log(printResult2(add2(5, 12))); // undefined, 아무것도 반환하지 않는 함수의 반환값을 사용했기때문
 
+// let combineValues: Function;  // 인수가 2개인데도 허용해줘버리는 문제
+let combineValues: (a: number, b: number) => number;
+
+combineValues = add2;
+// combineValues = printResult2;
+// combineValues = 5;
+
+console.log(combineValues(8, 8));
+
 // undefined는 타입스크립트에서 유효한 타입중 하나임
-let someValue: undefined;
+// let someValue: undefined;
