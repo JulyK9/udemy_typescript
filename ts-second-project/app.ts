@@ -17,6 +17,11 @@ function printResult3(num: number): undefined {
   return; // 값을 반환하지 않는 반환문이 있는 것임. 따라서 함수는 undefined 타입임
 }
 
+function addAndHandle(n1: number, n2: number, cb: (num: number) => void) {
+  const result = n1 + n2;
+  cb(result);
+}
+
 printResult2(add2(5, 12)); // Result: 17
 console.log(printResult2(add2(5, 12))); // undefined, 아무것도 반환하지 않는 함수의 반환값을 사용했기때문
 
@@ -31,3 +36,8 @@ console.log(combineValues(8, 8));
 
 // undefined는 타입스크립트에서 유효한 타입중 하나임
 // let someValue: undefined;
+
+addAndHandle(10, 20, (result) => {
+  console.log(result);
+  return result;
+});
