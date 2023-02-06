@@ -19,19 +19,23 @@ function add(a: number, b: number) {
 
 // console.log(result)
 
-const add2 = (a: number, b: number) => {
+const add2 = (a: number, b: number = 1) => {
   return a + b;
 };
 
 console.log(add2(2, 5));
 
 // 표현식이 하나뿐인 경우 중괄호를 생략하면 해당 표현식의 결과가 자동으로 반환됨(return이 암묵적으로 있음)
-const add3 = (a: number, b: number) => a + b;
+
+// 기본값 인수를 허용하지 않는 매개변수가 기본값 매개변수 앞에 먼저 오도록 해야함
+const add3 = (a: number, b: number = 1) => a + b;
+// const add3 = (a: number = 1, b: number) => a + b;
 
 const printOutput = (output: string | number) => {
   console.log(output);
 };
 printOutput(add2(2, 5));
+printOutput(add3(5)); // 6 매개변수 b의 기본값이 1로 설정됨
 
 // 하나의 매개변수만 취하는 함수를 사용하는 경우 괄호 생략 가능
 // 단 ts에서는 타입배정을 생략하면 안되기 때문에 js 에서만 가능
