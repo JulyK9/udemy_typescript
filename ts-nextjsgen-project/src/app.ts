@@ -52,3 +52,21 @@ const button = document.querySelector("button");
 
 // button?.addEventListener('click', () => {})
 button?.addEventListener("click", (event) => console.log(event));
+
+const hobbies = ["sports", "cooking"];
+// console.log(hobbies[0])
+const activeHobbies = ["hiking", ...hobbies];
+
+// activeHobbies.push(hobbies);
+// activeHobbies.push(hobbies[0], hobbies[1]);
+activeHobbies.push(...hobbies);
+// activeHobbies = [...activeHobbies, ...hobbies]
+
+const person = {
+  name: "Bruno",
+  age: 40,
+};
+
+// const copiedPerson = person;  // 원본 객체의 주소값만 복사
+
+const copiedPerson = { ...person }; // 원본 객체의 완전한 복사본
