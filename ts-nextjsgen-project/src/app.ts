@@ -70,3 +70,17 @@ const person = {
 // const copiedPerson = person;  // 원본 객체의 주소값만 복사
 
 const copiedPerson = { ...person }; // 원본 객체의 완전한 복사본
+
+// 나머지 매개변수의 사용
+
+// const add5 = (...numbers: number[]) => {
+const add5 = (...numbers: [number, number, number, number]) => {
+  // 지원할 인수의 수를 아는 경우 튜플 타입으로 사용할 수도 있음
+  // let result = 0;
+  return numbers.reduce((curResult, curValue) => {
+    return curResult + curValue;
+  }, 0);
+};
+
+const addNumbers = add5(5, 10, 2, 2.4);
+console.log(addNumbers);
