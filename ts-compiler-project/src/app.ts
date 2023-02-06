@@ -33,13 +33,14 @@ function add(n1: number, n2: number) {
   if (n1 + n2 > 0) {
     return n1 + n2;
   }
-  // return;
+  return;
 }
 
-function clickHandler(message: string, age: number) {
-  let userName = "Max"; // 더 이상 필요하지 않는 함수에서 사용하지 않은 지역 변수나 전역 변수를 원치 않는다고 설정했기 때문 noUnusedLocals 옵션
-  console.log("Clicked" + message);
-  // console.log("Clicked" + message + "in" + age);
+// function clickHandler(message: string, age: number) {
+function clickHandler(message: string) {
+  // let userName = "Max"; // 더 이상 필요하지 않는 함수에서 사용하지 않은 지역 변수나 전역 변수를 원치 않는다고 설정했기 때문 noUnusedLocals 옵션
+  // console.log("Clicked" + message);
+  console.log("Clicked " + message);
 }
 
 if (button) {
