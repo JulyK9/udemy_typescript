@@ -1,8 +1,8 @@
-const userName = "Max";
+// const userName = "Max";
 // userName = 'Maximilian';
 
-let age = 30;
-age = 29;
+// let age = 30;
+// age = 29;
 
 function add(a: number, b: number) {
   let result;
@@ -55,7 +55,8 @@ button?.addEventListener("click", (event) => console.log(event));
 
 const hobbies = ["sports", "cooking"];
 // console.log(hobbies[0])
-const activeHobbies = ["hiking", ...hobbies];
+// const activeHobbies = ["hiking", ...hobbies];
+const activeHobbies = ["hiking"];
 
 // activeHobbies.push(hobbies);
 // activeHobbies.push(hobbies[0], hobbies[1]);
@@ -63,7 +64,7 @@ activeHobbies.push(...hobbies);
 // activeHobbies = [...activeHobbies, ...hobbies]
 
 const person = {
-  name: "Bruno",
+  firstName: "Bruno",
   age: 40,
 };
 
@@ -84,3 +85,14 @@ const add5 = (...numbers: [number, number, number, number]) => {
 
 const addNumbers = add5(5, 10, 2, 2.4);
 console.log(addNumbers);
+
+// 구조분해할당
+// const hobby1 = hobbies[0]
+// const hobby2 = hobbies[1]
+const [hobby1, hobby2, ...remainingHobbies] = hobbies;
+
+// const { firstName, age } = person;
+const { firstName: userName, age } = person; // 타입을 지정하는 것이 아니라 새 이름을 설정하는 JS방법임
+
+// console.log(userName, age, firstname);
+console.log(userName, age, person);
