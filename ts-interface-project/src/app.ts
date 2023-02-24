@@ -1,7 +1,9 @@
 class Department {
   // 클래스의 필드(키값 쌍이 아니고 키 이름만 정의함)
-  name: string;
+  // private id: string;
+  // name: string;
   // public name: string; // public을 붙이는 것은 기본값이라서 안붙여줘도 됨
+  // private name: string;
 
   // employees: string[] = [];
   private employees: string[] = []; // private을 통해 생성된 객체 내부에서만 접근할 수 있는 속성으로 만들어줌
@@ -12,14 +14,17 @@ class Department {
   // 객체가 생성되면서 실행되는 클래스에 기반하여 만드는 모든 객체에도 연결되는 함수로
   // 이를 활용하여 구축하는 객체에 대한 초기화 작업을 수행
   // 생성자 함수는 클래스를 인스턴스화 할 때 호출하는 유틸리티 함수임
-  constructor(n: string) {
-    this.name = n;
+  // constructor(id: string, n: string) {
+  constructor(private id: string, public name: string) {
+    // this.id = id;
+    // this.name = n;
   }
 
   // 생성된 객체에서 호출할 수 있는 함수나 메서드를 추가할 수 있음
   // describe가 실행될 때 this는 Department 클래스에 기반한 인스턴스를 참조해야 하므로 객체는 결국 Department 타입이 됨
   describe(this: Department) {
-    console.log("Department: " + this.name);
+    // console.log("Department: " + this.name);
+    console.log(`Department (${this.id}): ${this.name}`);
   }
 
   addEmployee(employee: string) {
@@ -34,7 +39,8 @@ class Department {
 }
 
 // new 키워드를 통해 객체를 생성함
-const accounting = new Department("Accounting");
+// const accounting = new Department("Accounting");
+const accounting = new Department("d1", "Accounting");
 // console.log(accounting);
 
 accounting.addEmployee("Max"); // 직원을 추가하는 메서드 사용
