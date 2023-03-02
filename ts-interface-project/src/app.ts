@@ -7,7 +7,8 @@ class Department {
   // private name: string;
 
   // employees: string[] = [];
-  private employees: string[] = []; // private을 통해 생성된 객체 내부에서만 접근할 수 있는 속성으로 만들어줌
+  // private employees: string[] = []; // private을 통해 생성된 객체 내부에서만 접근할 수 있는 속성으로 만들어줌
+  protected employees: string[] = []; // protected 는 private 과 비슷하지만 확장된 클래스에서도 접근,사용 가능하도록 만들어줌
 
   // name: string = 'Default' // 초기값을 지정할 수도 있음
 
@@ -57,6 +58,14 @@ class AccountingDepartment extends Department {
     super(id, "Accounting");
   }
 
+  addEmployee(name: string) {
+    // 자식(확장된) 클래스 고유의 메서드를 추가하여 적용할 수 있음
+    if (name === "Max") {
+      return;
+    }
+    this.employees.push(name); // protected 키워드로 변경해야 부모(기본) 클래스의 속성인 employees에 접근 가능
+  }
+
   addReport(text: string) {
     this.reports.push(text);
   }
@@ -96,7 +105,13 @@ console.log(it);
 const accounting = new AccountingDepartment("d2", []);
 
 accounting.addReport("Something went wrong...");
+
+accounting.addEmployee("Bruno");
+accounting.addEmployee("Max");
+
 accounting.printReports();
+
+accounting.printEmployeeInformation();
 
 // const accountingCopy = { describe: accounting.describe };
 // const accountingCopy = { name: "DUMMY", describe: accounting.describe };
