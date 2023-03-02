@@ -1,6 +1,7 @@
 class Department {
   // 클래스의 필드(키값 쌍이 아니고 키 이름만 정의함)
   // private id: string;
+  // private readonly id: string; // readonly 를 추가하여 초기화후에 변경되어서는 안되는 필드를 지정해줄 수 있음(id 같은 고유한 필드들)
   // name: string;
   // public name: string; // public을 붙이는 것은 기본값이라서 안붙여줘도 됨
   // private name: string;
@@ -15,7 +16,9 @@ class Department {
   // 이를 활용하여 구축하는 객체에 대한 초기화 작업을 수행
   // 생성자 함수는 클래스를 인스턴스화 할 때 호출하는 유틸리티 함수임
   // constructor(id: string, n: string) {
-  constructor(private id: string, public name: string) {
+  // readonly 를 추가하여 초기화후에 변경되어서는 안되는 필드를 지정해줄 수 있음(id 같은 고유한 필드들)
+  // constructor(private readonly id: string, public name: string) {
+  constructor(private readonly id: string, public name: string) {
     // this.id = id;
     // this.name = n;
   }
@@ -30,6 +33,7 @@ class Department {
   addEmployee(employee: string) {
     // validation etc
     this.employees.push(employee);
+    // this.id = "d2"; // readonly 설정으로 불가함
   }
 
   printEmployeeInformation() {
@@ -38,13 +42,42 @@ class Department {
   }
 }
 
+class ITDepartment extends Department {
+  admins: string[];
+  // 생성자를 추가하여 고유 생성자를 추가할 수도 있음
+  // 생성자에서 먼저 super를 호출하고 this 키워드를 사용하여 작업
+  constructor(id: string, admins: string[]) {
+    super(id, "IT");
+    this.admins = admins;
+  }
+}
+
+class AccountingDepartment extends Department {
+  constructor(id: string, private reports: string[]) {
+    super(id, "Accounting");
+  }
+
+  addReport(text: string) {
+    this.reports.push(text);
+  }
+
+  printReports() {
+    console.log(this.reports);
+  }
+}
+
 // new 키워드를 통해 객체를 생성함
 // const accounting = new Department("Accounting");
-const accounting = new Department("d1", "Accounting");
+// const accounting = new ITDepartment("d1", "Accounting");
+// const accounting = new ITDepartment("d1");
+// const accounting = new ITDepartment("d1", ["Bruno", "Sam"]);
+const it = new ITDepartment("d1", ["Bruno", "Sam"]);
 // console.log(accounting);
 
-accounting.addEmployee("Max"); // 직원을 추가하는 메서드 사용
-accounting.addEmployee("Manu");
+// accounting.addEmployee("Max"); // 직원을 추가하는 메서드 사용
+it.addEmployee("Max"); // 직원을 추가하는 메서드 사용
+// accounting.addEmployee("Manu");
+it.addEmployee("Manu");
 
 // 이렇게 추가할 수도 있지만 협업차원과 코드 통일성 차원에서 한가지 방법으로 통일하는 게 좋다.
 // 게다가 기존 추가 방식인 메서드 내용이 일부 추가 되거나 변경되면(유효성 검사라던가) 그 변경이 함께 적요되지 않기 때문임.
@@ -52,8 +85,18 @@ accounting.addEmployee("Manu");
 // accounting.employees[2] = "Anna"; // private 을 추가하면 접근할 수 없음
 // accounting.name = 'NEW NAME'; // public 은 접근할 수 있음
 
-accounting.describe(); // Department: Accounting
-accounting.printEmployeeInformation();
+// accounting.describe(); // Department: Accounting
+it.describe(); // Department: Accounting
+// accounting.printEmployeeInformation();
+it.name = "NEW NAME";
+it.printEmployeeInformation();
+
+console.log(it);
+
+const accounting = new AccountingDepartment("d2", []);
+
+accounting.addReport("Something went wrong...");
+accounting.printReports();
 
 // const accountingCopy = { describe: accounting.describe };
 // const accountingCopy = { name: "DUMMY", describe: accounting.describe };
