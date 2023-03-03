@@ -54,8 +54,30 @@ class ITDepartment extends Department {
 }
 
 class AccountingDepartment extends Department {
+  private lastReport: string;
+
+  // 게터 설정
+  get mostRecentReport() {
+    // 게터 메소드는 반드시 무언가를 반환하도록 작성해야 함
+    // 이 안에서 세부적인 로직을 작성해주면 됨
+    if (this.lastReport) {
+      return this.lastReport; // private 이었지만 접근가능하도록 캡슐화 해줌ㄹ
+    }
+    throw new Error("No report found.");
+  }
+
+  // 세터 설정
+  set mostRecentReport(value: string) {
+    // 이 안에서 세부적인 로직을 작성해주면 됨
+    if (!value) {
+      throw new Error("Please pass in a valid value!");
+    }
+    this.addReport(value);
+  }
+
   constructor(id: string, private reports: string[]) {
     super(id, "Accounting");
+    this.lastReport = reports[0];
   }
 
   addEmployee(name: string) {
@@ -68,6 +90,7 @@ class AccountingDepartment extends Department {
 
   addReport(text: string) {
     this.reports.push(text);
+    this.lastReport = text;
   }
 
   printReports() {
@@ -104,7 +127,14 @@ console.log(it);
 
 const accounting = new AccountingDepartment("d2", []);
 
+// 세터 실행: 등호를 추가하여 해당하는 값을 설정해줌(게터처럼 메소드가 아닌 속성값으로 접근해야함)
+// accounting.mostRecentReport = "";
+accounting.mostRecentReport = "Year End Report";
+
 accounting.addReport("Something went wrong...");
+
+// 게터 실행
+console.log(accounting.mostRecentReport); // 주의: 속성으로써 접근해야지 메소드로 보고 () 붙이면 안됨
 
 accounting.addEmployee("Bruno");
 accounting.addEmployee("Max");
