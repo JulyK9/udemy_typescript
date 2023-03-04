@@ -1,4 +1,5 @@
 class Department {
+  // 정적 속성 설정
   static fiscalYear = 2020; // 인스턴스화 하지 않고 사용할 수 있도록 static 으로 작업
 
   // 클래스의 필드(키값 쌍이 아니고 키 이름만 정의함)
@@ -24,6 +25,8 @@ class Department {
   constructor(private readonly id: string, public name: string) {
     // this.id = id;
     // this.name = n;
+
+    // 정적 속성 접근
     // console.log(this.fiscalYear); // 오류
     console.log(Department.fiscalYear); // 정상
     // fiscalYear는 static으로 생성된 속성이라 this를 통해서는 접근 불가
@@ -115,6 +118,8 @@ class AccountingDepartment extends Department {
 // 클래스를 그룹화 메커니즘으로 사용하는 것
 const employee1 = Department.createEmployee("Max");
 // console.log("employee1: ", employee1);
+
+// 정적 속성 사용(접근)
 console.log(employee1, Department.fiscalYear);
 
 // new 키워드를 통해 객체를 생성함
