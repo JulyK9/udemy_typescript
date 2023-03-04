@@ -1,4 +1,6 @@
 class Department {
+  static fiscalYear = 2020; // 인스턴스화 하지 않고 사용할 수 있도록 static 으로 작업
+
   // 클래스의 필드(키값 쌍이 아니고 키 이름만 정의함)
   // private id: string;
   // private readonly id: string; // readonly 를 추가하여 초기화후에 변경되어서는 안되는 필드를 지정해줄 수 있음(id 같은 고유한 필드들)
@@ -22,6 +24,17 @@ class Department {
   constructor(private readonly id: string, public name: string) {
     // this.id = id;
     // this.name = n;
+    // console.log(this.fiscalYear); // 오류
+    console.log(Department.fiscalYear); // 정상
+    // fiscalYear는 static으로 생성된 속성이라 this를 통해서는 접근 불가
+    // this는 클래스를 기반으로 생성된 인스턴스를 참조하기 때문
+  }
+
+  // 정적 메소드 설정
+  // 이 클래스를 인스턴스화하지 않고 접근할 수 있는 정적 메소드로 만들기 위해서
+  // 정적 키워드인 static을 추가하고 객체를 반환
+  static createEmployee(name: string) {
+    return { name: name };
   }
 
   // 생성된 객체에서 호출할 수 있는 함수나 메서드를 추가할 수 있음
@@ -98,6 +111,12 @@ class AccountingDepartment extends Department {
   }
 }
 
+// 정적 메소드의 사용(new 키워드 없이 직접 클래스에서 호출)
+// 클래스를 그룹화 메커니즘으로 사용하는 것
+const employee1 = Department.createEmployee("Max");
+// console.log("employee1: ", employee1);
+console.log(employee1, Department.fiscalYear);
+
 // new 키워드를 통해 객체를 생성함
 // const accounting = new Department("Accounting");
 // const accounting = new ITDepartment("d1", "Accounting");
@@ -105,6 +124,8 @@ class AccountingDepartment extends Department {
 // const accounting = new ITDepartment("d1", ["Bruno", "Sam"]);
 const it = new ITDepartment("d1", ["Bruno", "Sam"]);
 // console.log(accounting);
+
+Math.PI;
 
 // accounting.addEmployee("Max"); // 직원을 추가하는 메서드 사용
 it.addEmployee("Max"); // 직원을 추가하는 메서드 사용
