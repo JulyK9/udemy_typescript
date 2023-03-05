@@ -1,4 +1,6 @@
-class Department {
+// class Department {
+abstract class Department {
+  // 메소드 앞에 abstract(추상)가 있는 메소드가 하나 이상이라면 클래스 앞에도 abstract를 추가해야 함
   // 정적 속성 설정
   static fiscalYear = 2020; // 인스턴스화 하지 않고 사용할 수 있도록 static 으로 작업
 
@@ -22,7 +24,8 @@ class Department {
   // constructor(id: string, n: string) {
   // readonly 를 추가하여 초기화후에 변경되어서는 안되는 필드를 지정해줄 수 있음(id 같은 고유한 필드들)
   // constructor(private readonly id: string, public name: string) {
-  constructor(private readonly id: string, public name: string) {
+  // constructor(private readonly id: string, public name: string) {
+  constructor(protected readonly id: string, public name: string) {
     // this.id = id;
     // this.name = n;
 
@@ -42,10 +45,14 @@ class Department {
 
   // 생성된 객체에서 호출할 수 있는 함수나 메서드를 추가할 수 있음
   // describe가 실행될 때 this는 Department 클래스에 기반한 인스턴스를 참조해야 하므로 객체는 결국 Department 타입이 됨
-  describe(this: Department) {
-    // console.log("Department: " + this.name);
-    console.log(`Department (${this.id}): ${this.name}`);
-  }
+  // describe(this: Department) {
+  // 메소드 앞에 abstract(추상)가 있는 메소드가 하나 이상이라면 클래스 앞에도 abstract를 추가해야 함
+  abstract describe(this: Department): void;
+  // => 메소드의 형태와 메소드의 구조가 어떤 것인지만 정의해주고 그 외에는 아무 것도 정의하지 않음
+  // abstract describe(this: Department) {
+  // console.log("Department: " + this.name);
+  // console.log(`Department (${this.id}): ${this.name}`);
+  // }
 
   addEmployee(employee: string) {
     // validation etc
@@ -66,6 +73,11 @@ class ITDepartment extends Department {
   constructor(id: string, admins: string[]) {
     super(id, "IT");
     this.admins = admins;
+  }
+
+  // 추상 클래스이자 추상 메소드인 department 클래스를 기반으로 하기 때문에 decribe 메소드는 어떤 클래스로든 구현되어야 함
+  describe() {
+    console.log("IT Department - ID: this.id");
   }
 }
 
@@ -94,6 +106,10 @@ class AccountingDepartment extends Department {
   constructor(id: string, private reports: string[]) {
     super(id, "Accounting");
     this.lastReport = reports[0];
+  }
+
+  describe() {
+    console.log("Accounting Department - ID: " + this.id); // private을 protected로 변경해줘야 id 속성에 접근 가능
   }
 
   addEmployee(name: string) {
@@ -165,9 +181,11 @@ console.log(accounting.mostRecentReport); // 주의: 속성으로써 접근해�
 accounting.addEmployee("Bruno");
 accounting.addEmployee("Max");
 
-accounting.printReports();
+accounting.describe();
 
-accounting.printEmployeeInformation();
+// accounting.printReports();
+
+// accounting.printEmployeeInformation();
 
 // const accountingCopy = { describe: accounting.describe };
 // const accountingCopy = { name: "DUMMY", describe: accounting.describe };
