@@ -83,6 +83,9 @@ class ITDepartment extends Department {
 
 class AccountingDepartment extends Department {
   private lastReport: string;
+  // private 생성자의 정적 메소드 추가를 위한 인스턴스 설정 추가
+  // 클래스 내에서만 접근할 수 있는(private) 정적(static) 속성 설정, 타입은 클래스 자체
+  private static instance: AccountingDepartment;
 
   // 게터 설정
   get mostRecentReport() {
@@ -103,9 +106,29 @@ class AccountingDepartment extends Department {
     this.addReport(value);
   }
 
-  constructor(id: string, private reports: string[]) {
+  // constructor(id: string, private reports: string[]) {
+  // private 생성자 적용
+  private constructor(id: string, private reports: string[]) {
     super(id, "Accounting");
     this.lastReport = reports[0];
+  }
+
+  // private 생성자 설정으로 인한 정적 메소드 추가
+  // 이 클래스의 인스턴스가 이미 있는지 확인하고 없다면 새 인스턴스를 반환
+  static getInstance() {
+    // static 대신 this로 설정하면 클래스 자체를 참조하게 되므로
+    // 다른 모든 정적 속성에 접근할 수 있도록 이를 대체하여 클래스 이름을 사용할 수도 있음
+    // if(this.instance) {}
+    // 이미 인스턴스가 있다면 그걸 반환하고
+    if (AccountingDepartment.instance) {
+      // return AccountingDepartment.instance;
+      return this.instance;
+    }
+    // 없다면 새 인스턴스를
+    // 이 정적 인스턴스 속성이 AccountingDepartment와 같다고 해줘야 클래스 메서드 내부에서 이용할 수 있음
+    // 이로써 private 생성자에 접근할 수 있음
+    this.instance = new AccountingDepartment("D2", []);
+    return this.instance;
   }
 
   describe() {
@@ -167,7 +190,13 @@ it.printEmployeeInformation();
 
 console.log(it);
 
-const accounting = new AccountingDepartment("d2", []);
+// const accounting = new AccountingDepartment("d2", []); // private 생성자를 적용하면 new로 호출할 수 없음
+const accounting = AccountingDepartment.getInstance();
+const accounting2 = AccountingDepartment.getInstance();
+
+// 싱글톤 패턴 작업에 의해 같은 id와 설정을 가진 같은 객체이자 같은 인스턴스가 생성됐음을 확인할 수 있음
+// 싱글톤 패턴은 가진 인스턴스가 하나이기 때문
+console.log(accounting, accounting2);
 
 // 세터 실행: 등호를 추가하여 해당하는 값을 설정해줌(게터처럼 메소드가 아닌 속성값으로 접근해야함)
 // accounting.mostRecentReport = "";
