@@ -48,7 +48,9 @@ let user1: Greetable;
 // };
 
 user1 = new Person('Max');
-// user1.name = 'Manu'; // 클래스에서 readonly를 추가하지 않아도 인터페이스에서 readonly 속성으로 설정해서 에러 발생
+// 클래스에서 readonly를 추가하지 않아도 인터페이스에서 readonly 속성으로 설정해서 에러 발생
+// 왜냐하면 클래스는 Greetable을 구현한다는 것을 인지하기 때문
+// user1.name = 'Manu';
 
 // user1 객체의 메소드 사용
 user1.greet('Hi there');
