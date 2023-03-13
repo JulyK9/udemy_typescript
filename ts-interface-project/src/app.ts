@@ -1,3 +1,18 @@
+// 함수의 타입 정의
+// type AddFn = (a: string, b:string) => number
+
+// 인터페이스를 함수 타입으로서 사용하고자 할 때
+interface AddFn {
+  (a: number, b: number): number; // 메소드 이름만 추가하지 않을 뿐 메소드 추가 형태와 동일
+}
+
+let add: AddFn;
+
+add = (n1: number, n2: number) => {
+  // add = (n1: string, n2: number) => {
+  return n1 + n2;
+};
+
 interface Named {
   readonly name: string;
 }
