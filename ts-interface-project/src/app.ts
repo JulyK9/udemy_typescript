@@ -2,9 +2,12 @@
 // type Person = {
 // interface Person {
 // 인터페이스를 어떤 상수나 변수의 타입으로 사용하여 인터페이스 타입을 기반으로 하는 다른 타입의 클래스를 저장할 수 있음
+// 인터페이스 내에 readonly 제어자도 추가할 수 있지만 public, private 등은 지정할 수 없음
 interface Greetable {
   // name: string = 'Bruno'; // 인터페이스는 초기값을 가질 수 없음 => 구조만 있을 뿐임
-  name: string;
+  // readonly 를 추가하여 인터페이스를 기반으로 구축하는 모든 객체의 속성이 한번만 설정되어야하며
+  // 이후에는 읽기 전용으로 설정하여 객체가 초기화되면 변경할 수 없도록 할 수 있음
+  readonly name: string;
   // age: number;
 
   // 메소드 추가
@@ -45,6 +48,7 @@ let user1: Greetable;
 // };
 
 user1 = new Person('Max');
+// user1.name = 'Manu'; // 클래스에서 readonly를 추가하지 않아도 인터페이스에서 readonly 속성으로 설정해서 에러 발생
 
 // user1 객체의 메소드 사용
 user1.greet('Hi there');
