@@ -14,7 +14,11 @@ add = (n1: number, n2: number) => {
 };
 
 interface Named {
-  readonly name: string;
+  // readonly name: string;
+  readonly name?: string;
+  // 속성 이름 다음에 물음표를 추가해서 선택적 속성을 지정할 수 있음
+  // 이 속성이 인터페이스를 구현하는 클래스 내에 있을 수 있지만 반드시 그렇지는 않음을 인식하게 해줌
+  outputName?: string;
 }
 
 // 속성의 이름, 속성에 저장될 값의 타입이나 필드 정의를 추가
@@ -50,15 +54,25 @@ interface Greetable extends Named {
 // 쉼표로 구분하여 여러 개의 인터페이스를 구현할 수 있다는 것이 상속과 차이점임
 // class Person implements Greetable, AnotherInterface {
 class Person implements Greetable, Named {
-  name: string;
+  // name: string;
+  name?: string; // 선택적 옵션으로 클래스에 입력하면 모든 경우마다 값을 할당할 필요가 없음
   age = 30;
 
-  constructor(n: string) {
-    this.name = n;
+  // constructor(n: string) {
+  constructor(n?: string) {
+    // this.name = n;
+    if (n) {
+      this.name = n;
+    }
   }
 
   greet(phrase: string) {
-    console.log(phrase + ' ' + this.name);
+    // console.log(phrase + ' ' + this.name);
+    if (this.name) {
+      console.log(phrase + ' ' + this.name);
+    } else {
+      console.log('Hi!');
+    }
   }
 }
 
