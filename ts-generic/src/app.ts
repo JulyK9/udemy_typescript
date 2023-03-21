@@ -79,3 +79,17 @@ function countAndDescribe<T extends Lengthy>(element: T): [T, string] {
 console.log(countAndDescribe(['Sports', 'Cooking'])); // 배열
 // console.log(countAndDescribe([]));
 // console.log(countAndDescribe(10)); // 오류: 숫자는 length 속성을 지니지 않으므로
+
+// keyof 제약조건
+// function extractAndConvert(obj: object, key: string) {
+function extractAndConvert<T extends object, U extends keyof T>(
+  obj: T,
+  key: U
+) {
+  // 첫번째 매개변수는 어떤 형태의 객체여야하고, 두번째 매개변수는 첫번째 매개변수 객체의 모든 유형의 키여야 한다고 설정한 것
+  return 'Value: ' + obj[key]; // 에러: 인자의 객체가 무엇이든간에 해당 키를 가지는지는 알 수 없으므로 => 이를 보장하기 위해 제네릭 타입 사용
+}
+
+// console.log(extractAndConvert({}, 'name')); // 에러: 첫번째 매개변수 객체에 name 키가 없으므로
+console.log(extractAndConvert({ name: 'Bruno' }, 'name'));
+// console.log(extractAndConvert({ name: 'Bruno' }, 'age')); // 에러: 존재하지 않는 접근하기 때문
