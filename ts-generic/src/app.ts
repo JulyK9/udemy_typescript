@@ -28,15 +28,19 @@
 
 // 제네릭 함수 생성
 // function merge(objA: object, objB: object) {
-function merge<T, U>(objA: T, objB: U) {
-  // return Object.assign(objA, objB);
-  return Object.assign({}, objA, objB);
+// function merge<T, U>(objA: T, objB: U) {
+// extends object: T 타입이 어떤 구조를 가진 객체가 되어도 상관없지만 일단은 객체가 되어야 한다는 의미
+// function merge<T extends object, U>(objA: T, objB: U) {
+function merge<T extends object, U extends object>(objA: T, objB: U) {
+  return Object.assign(objA, objB);
+  // return Object.assign({}, objA, objB);
 }
 
 // console.log(merge({ name: 'Max' }, { age: 30 })); // 정상 작동
 
 // const mergedObj = merge({ name: 'Max' }, { age: 30 });
 const mergedObj = merge({ name: 'Max', hobbies: ['Sports'] }, { age: 30 });
+// const mergedObj = merge({ name: 'Max', hobbies: ['Sports'] }, 30);
 // const mergedObj = merge<string, number>({ name: 'Max', hobbies: ['Sports'] }, { age: 30 });
 // const mergedObj = merge<object, object>({ name: 'Max', hobbies: ['Sports'] }, { age: 30 });
 // const mergedObj = merge<{ name: string; hobbies: string[] }, { age: number }>(
