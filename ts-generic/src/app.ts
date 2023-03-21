@@ -53,3 +53,29 @@ const mergedObj2 = merge({ name: 'Max' }, { age: 30 });
 // const mergedObj = merge({ name: 'Max' }, { age: 30 }) as {name: string, age: number}
 // mergedObj.name; // name에 접근할 수 없음(타스는 객체인 것만 알지 객체의 형태는 모르기 때문)
 console.log(mergedObj.age);
+
+// 다른 제네릭 함수 만들어보기
+
+// 객체가 숫자를 반환해야할 length 속성을 지니도록 보장
+interface Lengthy {
+  length: number;
+}
+
+// function countAndDescribe<T>(element: T) {
+// function countAndDescribe<T extends Lengthy>(element: T) { // 제약조건 설정
+// function countAndDescribe<T extends Lengthy>(element: string | Array): [T, string] {
+function countAndDescribe<T extends Lengthy>(element: T): [T, string] {
+  // 튜플 반환 입력
+  let descriptionText = 'Got no value.';
+  if (element.length === 1) {
+    descriptionText = 'Got 1 element.';
+  } else if (element.length > 1) {
+    descriptionText = 'Got ' + element.length + ' element.';
+  }
+  return [element, descriptionText];
+}
+
+// console.log(countAndDescribe('Hi there!')); // 문자열
+console.log(countAndDescribe(['Sports', 'Cooking'])); // 배열
+// console.log(countAndDescribe([]));
+// console.log(countAndDescribe(10)); // 오류: 숫자는 length 속성을 지니지 않으므로
