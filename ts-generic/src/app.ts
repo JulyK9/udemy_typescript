@@ -140,3 +140,34 @@ const numberStorage = new DataStorage<number>();
 // // => 문제: 객체나 배열로 작업할 경우 indexof가 제대로 작동안됨(참조타입이므로 인자로 들어간 객체는 완전 새로운 객체임)
 // // 결국 일치하는 요소를 찾지 못하고 배열에서 마지막 요소를 제거하게 되고 indexof는 -1을 반환함
 // console.log(objStorage.getItems());
+
+// 내장된 파셜(Partial) 타입
+interface CourseGoal {
+  title: string;
+  description: string;
+  completeUntil: Date;
+}
+
+function createCourseGoal(
+  title: string,
+  description: string,
+  date: Date
+): CourseGoal {
+  // return { title: title, description: description, completeUntil: date };
+  // let courseGoal: CourseGoal = {};
+  // 파셜 타입은 타스에게 중괄호 쌍이 CourseGoal이 되는 객체임을 알려줌
+  // => 따라서 중괄호 쌍을 빈 객체로 설정하여 단계적으로 모든 요소를 추가할 수 있음
+  let courseGoal: Partial<CourseGoal> = {};
+  courseGoal.title = title;
+  courseGoal.description = description;
+  courseGoal.completeUntil = date;
+  // return courseGoal;
+  return courseGoal as CourseGoal; // CourseGoal 타입으로 반환하기 위해 형 변환하여 해결
+}
+
+// Readonly 내장 유틸리티 타입
+// 참고로 배열 뿐만 아니라 객체에 대해서도 Readonly 를 사용할 수 있음
+// const names = ['Max', 'Anna'];
+const names: Readonly<string[]> = ['Max', 'Anna'];
+// names.push('Manu');
+// names.pop();
