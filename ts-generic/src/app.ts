@@ -93,3 +93,50 @@ function extractAndConvert<T extends object, U extends keyof T>(
 // console.log(extractAndConvert({}, 'name')); // 에러: 첫번째 매개변수 객체에 name 키가 없으므로
 console.log(extractAndConvert({ name: 'Bruno' }, 'name'));
 // console.log(extractAndConvert({ name: 'Bruno' }, 'age')); // 에러: 존재하지 않는 접근하기 때문
+
+// 제네릭 클래스
+
+// class DataStorage {  // 주의: Storage는 예약어임
+// class DataStorage<T> {
+class DataStorage<T extends string | number | boolean> {
+  private data: T[] = [];
+
+  addItem(item: T) {
+    this.data.push(item);
+  }
+
+  removeItem(item: T) {
+    // 잘못된 아이템 제거 방지
+    if (this.data.indexOf(item) === -1) {
+      return;
+    }
+    this.data.splice(this.data.indexOf(item), 1); // -1
+  }
+
+  getItems() {
+    return [...this.data];
+  }
+}
+
+const textStorage = new DataStorage<string>();
+// textStorage.addItem(10)
+textStorage.addItem('Bruno');
+textStorage.addItem('Max');
+textStorage.removeItem('Bruno');
+console.log(textStorage.getItems());
+
+const numberStorage = new DataStorage<number>();
+// const numberStorage = new DataStorage<number | string>();
+
+// const objStorage = new DataStorage<object>();
+// const maxObj = { name: 'Max' }; // 같은 객체를 전달하기 위한 상수화 작업
+
+// // objStorage.addItem({ name: 'Max' });
+// objStorage.addItem(maxObj);
+// objStorage.addItem({ name: 'Bruno' });
+// // ...
+// // objStorage.removeItem({ name: 'Max' });
+// objStorage.removeItem(maxObj);
+// // => 문제: 객체나 배열로 작업할 경우 indexof가 제대로 작동안됨(참조타입이므로 인자로 들어간 객체는 완전 새로운 객체임)
+// // 결국 일치하는 요소를 찾지 못하고 배열에서 마지막 요소를 제거하게 되고 indexof는 -1을 반환함
+// console.log(objStorage.getItems());
