@@ -98,18 +98,19 @@ console.log(extractAndConvert({ name: 'Bruno' }, 'name'));
 
 // class DataStorage {  // 주의: Storage는 예약어임
 // class DataStorage<T> {
-// class DataStorage<T extends string | number | boolean> {
-class DataStorage {
-  // private data: T[] = [];
-  private data: (string | number | boolean)[] = [];
+class DataStorage<T extends string | number | boolean> {
+  // class DataStorage {
+  private data: T[] = [];
+  // private data: (string | number | boolean)[] = [];
+  // private data: string[] | number[] | boolean[] = [];
 
-  // addItem(item: T) {
-  addItem(item: string | number | boolean) {
+  addItem(item: T) {
+    // addItem(item: string | number | boolean) {
     this.data.push(item);
   }
 
-  // removeItem(item: T) {
-  removeItem(item: string | number | boolean) {
+  removeItem(item: T) {
+    // removeItem(item: string | number | boolean) {
     // 잘못된 아이템 제거 방지
     if (this.data.indexOf(item) === -1) {
       return;
@@ -129,6 +130,7 @@ textStorage.addItem('Max');
 textStorage.removeItem('Bruno');
 console.log(textStorage.getItems());
 
+// const numberStorage = new DataStorage();
 const numberStorage = new DataStorage<number>();
 // const numberStorage = new DataStorage<number | string>();
 
